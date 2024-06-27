@@ -34,7 +34,7 @@ public class Game extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        world = new World(new Vector2(0, 0), true);
+        world = new World(new Vector2(0, -50), true);
         debugRenderer = new Box2DDebugRenderer();
         camera = new OrthographicCamera();
         fill_shape = new ShapeRenderer();
@@ -114,11 +114,8 @@ public class Game extends ApplicationAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             player.moveLeft();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            player.moveUp();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            player.moveDown();
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            player.jump();
         }
 
 

@@ -31,11 +31,6 @@ public class GameObject {
         this.WORLD = world;
         this.FIXTURE_PROPERTIES = fixtureProperties;
 
-        BodyDef anchorDef = new BodyDef();
-        anchorDef.type = BodyDef.BodyType.StaticBody;
-        anchorDef.position.set(new Vector2(-1, -1));
-        Body anchor = world.createBody(anchorDef);
-
         tex = new TextureRegion(new Texture("badlogic.jpg"));
         BodyDef bodyDef = new BodyDef();
 
@@ -46,12 +41,6 @@ public class GameObject {
         BODY.createFixture(this.FIXTURE_PROPERTIES);
         BODY.setUserData(this);
         fixtureProperties.dispose();
-        FrictionJointDef jf = new FrictionJointDef();
-        jf.maxForce = 550000f;
-        jf.maxTorque = 1f;
-        jf.initialize(BODY, anchor, new Vector2(0, 0));
-        FrictionJoint j = (FrictionJoint) world.createJoint(jf);
-//        j.set
 
 
     }
@@ -104,19 +93,11 @@ public class GameObject {
     }
 
     public void moveLeft() {
-        applyImpulse(-speed * getMass(), 0);
+        applyImpulse(-(onGround() ? speed : speed * 0.65f) * getMass(), 0);
     }
 
     public void moveRight() {
-        applyImpulse(speed * getMass(), 0);
-    }
-
-    public void moveUp() {
-        applyImpulse(0, speed * getMass());
-    }
-
-    public void moveDown() {
-        applyImpulse(0, -speed * getMass());
+        applyImpulse((onGround() ? speed : speed * 0.65f) * getMass(), 0);
     }
 
     public void jump() {
